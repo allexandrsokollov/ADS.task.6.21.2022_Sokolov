@@ -2,7 +2,7 @@
   <artifact type="jar" name="GraphSamples:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/GraphSamples_jar</output-path>
     <root id="archive" name="GraphSamples.jar">
-      <element id="module-output" name="GraphSamples" />
+      <element id="module-output" name="ADS.task.7.23.2022_Sokolov" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/xmlgraphics/batik-bridge/1.13/batik-bridge-1.13.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/xmlgraphics/batik-anim/1.13/batik-anim-1.13.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/xmlgraphics/batik-ext/1.13/batik-ext-1.13.jar" path-in-jar="/" />
