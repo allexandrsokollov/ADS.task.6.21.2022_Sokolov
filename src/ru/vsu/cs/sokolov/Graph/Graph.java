@@ -2,22 +2,78 @@ package ru.vsu.cs.sokolov.Graph;
 
 import java.util.*;
 
-/*
-graph {
-    2 -- { 3 4 }
-    3 -- 6 -- { 2 4 }
-}
- */
 public class Graph {
 
     private final Map<Vertex, ArrayList<Vertex>> graph;
 
-    public Graph(String strGraph) throws GraphException {
+    public Graph(String strGraph) {
         this.graph = new LinkedHashMap<>();
         this.stringToGraph(strGraph);
     }
 
-    private void stringToGraph(String stringGraph) throws GraphException {
+
+    @Override
+    public String toString() {
+        StringBuilder stringGraph = new StringBuilder();
+        stringGraph.append("graph {\n");
+
+        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
+            ArrayList<Vertex> temp = graph.get(entry.getKey());
+            stringGraph.append(entry.getKey()).append(" -- { ");
+
+            for (Vertex vertex : temp) {
+                stringGraph.append(vertex).append(" ");
+            }
+
+            stringGraph.append(" }\n");
+        }
+
+        stringGraph.append("}");
+
+        return stringGraph.toString();
+    }
+    public void divideGraph(int t) {
+        t = 1;
+        int minAmountInSubgraph = graph.size() / t;
+
+        LinkedHashMap<Vertex, Boolean> visited = new LinkedHashMap<>();
+        LinkedList<Vertex> queue = new LinkedList<>();
+
+        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
+            int amountVertInNew;
+            visited.put(entry.getKey(), true);
+            amountVertInNew = 1;
+
+            queue.addAll(graph.get(entry.getKey()));
+
+            while (!queue.isEmpty()) {
+                visited.put(queue.get(0), true);
+
+                for (Vertex toAdd : graph.get(queue.get(0))) {
+                    if (!visited.containsKey(toAdd) && !queue.contains(toAdd)) {
+                        queue.add(toAdd);
+                    }
+                }
+
+                queue.remove(0);
+                amountVertInNew++;
+
+
+                if (amountVertInNew == minAmountInSubgraph) {
+                    break;
+                }
+            }
+        }
+
+        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
+
+            if (!visited.containsKey(entry.getKey())) {
+                graph.get(entry.getKey()).removeIf(visited::containsKey);
+            }
+        }
+    }
+
+    private void stringToGraph(String stringGraph)  {
 
         Scanner scanner = new Scanner(stringGraph);
         ArrayList<String> graphStrings = new ArrayList<>();

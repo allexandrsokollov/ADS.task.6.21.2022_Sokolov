@@ -9,40 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="Second commit">
-      <change afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Graph.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/GraphException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Vertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/GraphSamples_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/GraphSamples_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/guru_nidi_graphviz_java_0_14_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/guru_nidi_graphviz_java_0_14_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="String to graph method works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraphSamples.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ADS.task.7.23.2022_Sokolov.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/output/ex1.png" beforeDir="false" afterPath="$PROJECT_DIR$/files/output/ex1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/output/ex1.svg" beforeDir="false" afterPath="$PROJECT_DIR$/files/output/ex1.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/output/ex1m.png" beforeDir="false" afterPath="$PROJECT_DIR$/files/output/ex1m.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/output/ex1m.svg" beforeDir="false" afterPath="$PROJECT_DIR$/files/output/ex1m.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/output/ex3.png" beforeDir="false" afterPath="$PROJECT_DIR$/files/output/ex3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/output/ex3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/files/output/ex3.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/AdjListsDigraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/AdjListsGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/AdjMatrixDigraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/AdjMatrixGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/Digraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/Graph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/GraphAlgorithms.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/GraphUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/WeightedDigraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/WeightedGraph.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/Program.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/util/dummy/DefaultNotSupportedCollection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/util/dummy/DefaultNotSupportedMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/util/dummy/DefaultNotSupportedSet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/util/dummy/DefaultNotSupportedSortedMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/GraphException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Vertex.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +92,9 @@
       <workItem from="1656138398758" duration="1377000" />
       <workItem from="1656397692708" duration="3746000" />
       <workItem from="1656405271289" duration="13000" />
-      <workItem from="1656418354793" duration="1884000" />
+      <workItem from="1656418354793" duration="2733000" />
+      <workItem from="1656500530900" duration="3203000" />
+      <workItem from="1656511542697" duration="6156000" />
     </task>
     <task id="LOCAL-00001" summary="Second commit">
       <created>1622212057858</created>
@@ -135,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622786210980</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="String to graph method works">
+      <created>1656420556113</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1656420556113</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,7 +136,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Second commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Second commit" />
+    <MESSAGE value="String to graph method works" />
+    <option name="LAST_COMMIT_MESSAGE" value="String to graph method works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -163,11 +146,6 @@
           <url>file://$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphvizExamples.java</url>
           <line>148</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java</url>
-          <line>142</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

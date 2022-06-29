@@ -19,6 +19,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.io.*;
 import java.lang.reflect.Method;
@@ -35,13 +37,15 @@ public class GraphDemoFrame extends JFrame {
     private JButton buttonDotPaint;
     private JTextArea textAreaDotFile;
     private JSplitPane splitPaneGraphvizTab1;
+    private JButton buttonDivide;
 
     private final JFileChooser fileChooserDotOpen;
-
+    private Graph graph;
     private final SvgPanel panelGraphvizPainter;
 
     private static class SvgPanel extends JPanel {
         private GraphicsNode svgGraphicsNode = null;
+
 
         public void paint(String svg) throws IOException {
             String xmlParser = XMLResourceDescriptor.getXMLParserClassName();
@@ -139,13 +143,17 @@ public class GraphDemoFrame extends JFrame {
                 String graphh = dotToSvg(textAreaDotFile.getText());
                 panelGraphvizPainter.paint(graphh);
 
-                Graph graph = new Graph(textAreaDotFile.getText());
+                graph = new Graph(textAreaDotFile.getText());
                 System.out.println(graphh);
             } catch (Exception exc) {
                 SwingUtils.showErrorMessageBox(exc);
             }
         });
 
+        buttonDivide.addActionListener(e -> {
+            graph.divideGraph(0);
+            textAreaDotFile.setText(graph.toString());
+        });
     }
 
     private static String dotToSvg(String dotSrc) throws IOException {
@@ -212,8 +220,9 @@ public class GraphDemoFrame extends JFrame {
         buttonDotPaint = new JButton();
         buttonDotPaint.setText("Отобразить");
         panel4.add(buttonDotPaint, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer3 = new Spacer();
-        panel4.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        buttonDivide = new JButton();
+        buttonDivide.setText("Divide");
+        panel4.add(buttonDivide, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
