@@ -34,13 +34,13 @@ public class Graph {
     }
     public void divideGraph(int t) {
         t = 1;
-        int minAmountInSubgraph = graph.size() / t;
+        int minAmountInSubgraph = graph.size() / (t + 1);
 
         HashSet<Vertex> visited = null;
         LinkedList<Vertex> queue = new LinkedList<>();
 
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
-            visited = new HashSet<>(getNNearestVertexes(entry.getKey(), 3));
+            visited = new HashSet<>(getNNearestVertexes(entry.getKey(), minAmountInSubgraph));
             break;
         }
 
@@ -48,7 +48,6 @@ public class Graph {
     }
 
     private void deleteEdges(HashSet<Vertex> visited) {
-
         for (Vertex vertex : graph.keySet()) {
             if (!visited.contains(vertex)) {
                 for (Vertex visVert : visited) {

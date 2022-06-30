@@ -16,36 +16,28 @@ import ru.vsu.cs.sokolov.Graph.Graph;
 import ru.vsu.cs.util.SwingUtils;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class GraphDemoFrame extends JFrame {
     private JTabbedPane tabbedPaneMain;
     private JPanel panelMain;
     private JPanel panelGraphvizTab;
     private JPanel panelDotPainterContainer;
-    private JButton buttonLoadDotFile;
     private JButton buttonDotPaint;
     private JTextArea textAreaDotFile;
     private JSplitPane splitPaneGraphvizTab1;
     private JButton buttonDivide;
 
-    private final JFileChooser fileChooserDotOpen;
     private Graph graph;
     private final SvgPanel panelGraphvizPainter;
 
     private static class SvgPanel extends JPanel {
         private GraphicsNode svgGraphicsNode = null;
-
 
         public void paint(String svg) throws IOException {
             String xmlParser = XMLResourceDescriptor.getXMLParserClassName();
@@ -89,36 +81,6 @@ public class GraphDemoFrame extends JFrame {
 
         splitPaneGraphvizTab1.setBorder(null);
 
-        JFileChooser fileChooserTxtOpen = new JFileChooser();
-        fileChooserDotOpen = new JFileChooser();
-        JFileChooser fileChooserTxtSave = new JFileChooser();
-        JFileChooser fileChooserDotSave = new JFileChooser();
-        JFileChooser fileChooserImgSave = new JFileChooser();
-        fileChooserTxtOpen.setCurrentDirectory(new File("./files/input"));
-        fileChooserDotOpen.setCurrentDirectory(new File("./files/input"));
-        fileChooserTxtSave.setCurrentDirectory(new File("./files/input"));
-        fileChooserDotSave.setCurrentDirectory(new File("./files/input"));
-        fileChooserImgSave.setCurrentDirectory(new File("./files/output"));
-        FileFilter txtFilter = new FileNameExtensionFilter("Text files (*.txt)", "txt");
-        FileFilter dotFilter = new FileNameExtensionFilter("DOT files (*.dot)", "dot");
-        FileFilter svgFilter = new FileNameExtensionFilter("SVG images (*.svg)", "svg");
-
-        fileChooserTxtOpen.addChoosableFileFilter(txtFilter);
-        fileChooserDotOpen.addChoosableFileFilter(dotFilter);
-        fileChooserTxtSave.addChoosableFileFilter(txtFilter);
-        fileChooserDotSave.addChoosableFileFilter(dotFilter);
-        fileChooserImgSave.addChoosableFileFilter(svgFilter);
-
-        fileChooserTxtSave.setAcceptAllFileFilterUsed(false);
-        fileChooserTxtSave.setDialogType(JFileChooser.SAVE_DIALOG);
-        fileChooserTxtSave.setApproveButtonText("Save");
-        fileChooserDotSave.setAcceptAllFileFilterUsed(false);
-        fileChooserDotSave.setDialogType(JFileChooser.SAVE_DIALOG);
-        fileChooserDotSave.setApproveButtonText("Save");
-        fileChooserImgSave.setAcceptAllFileFilterUsed(false);
-        fileChooserImgSave.setDialogType(JFileChooser.SAVE_DIALOG);
-        fileChooserImgSave.setApproveButtonText("Save");
-
         panelDotPainterContainer.setLayout(new BorderLayout());
         panelGraphvizPainter = new SvgPanel();
         panelDotPainterContainer.add(new JScrollPane(panelGraphvizPainter));
@@ -126,25 +88,10 @@ public class GraphDemoFrame extends JFrame {
         Method[] methods = GraphvizExamples.class.getMethods();
         Arrays.sort(methods, Comparator.comparing(Method::getName));
 
-
-        buttonLoadDotFile.addActionListener(e -> {
-            if (fileChooserDotOpen.showOpenDialog(GraphDemoFrame.this) == JFileChooser.APPROVE_OPTION) {
-                try (Scanner sc = new Scanner(fileChooserDotOpen.getSelectedFile())) {
-                    sc.useDelimiter("\\Z");
-                    textAreaDotFile.setText(sc.next());
-                } catch (Exception exc) {
-                    SwingUtils.showErrorMessageBox(exc);
-                }
-            }
-        });
-
         buttonDotPaint.addActionListener(e -> {
             try {
-                String graphh = dotToSvg(textAreaDotFile.getText());
-                panelGraphvizPainter.paint(graphh);
-
+                panelGraphvizPainter.paint(dotToSvg(textAreaDotFile.getText()));
                 graph = new Graph(textAreaDotFile.getText());
-                System.out.println(graphh);
             } catch (Exception exc) {
                 SwingUtils.showErrorMessageBox(exc);
             }
@@ -198,7 +145,7 @@ public class GraphDemoFrame extends JFrame {
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel2.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitPaneGraphvizTab1.setLeftComponent(panel2);
         final JScrollPane scrollPane1 = new JScrollPane();
         panel2.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
@@ -209,20 +156,12 @@ public class GraphDemoFrame extends JFrame {
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel2.add(panel3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        buttonLoadDotFile = new JButton();
-        buttonLoadDotFile.setText("Загрузить из файла");
-        panel3.add(buttonLoadDotFile, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer2 = new Spacer();
-        panel3.add(spacer2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        final JPanel panel4 = new JPanel();
-        panel4.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
-        panel2.add(panel4, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         buttonDotPaint = new JButton();
         buttonDotPaint.setText("Отобразить");
-        panel4.add(buttonDotPaint, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel3.add(buttonDotPaint, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonDivide = new JButton();
         buttonDivide.setText("Divide");
-        panel4.add(buttonDivide, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel3.add(buttonDivide, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
