@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="nothing...">
+    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="getNNearestVertexes added and works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Graph.java" afterDir="false" />
     </list>
@@ -93,7 +93,7 @@
       <workItem from="1656511542697" duration="6195000" />
       <workItem from="1656561634029" duration="760000" />
       <workItem from="1656593542433" duration="65000" />
-      <workItem from="1656593798974" duration="2637000" />
+      <workItem from="1656593798974" duration="3326000" />
     </task>
     <task id="LOCAL-00001" summary="Second commit">
       <created>1622212057858</created>
@@ -123,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656518615662</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="getNNearestVertexes added and works">
+      <created>1656598699457</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1656598699457</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +151,8 @@
     <MESSAGE value="Second commit" />
     <MESSAGE value="String to graph method works" />
     <MESSAGE value="nothing..." />
-    <option name="LAST_COMMIT_MESSAGE" value="nothing..." />
+    <MESSAGE value="getNNearestVertexes added and works" />
+    <option name="LAST_COMMIT_MESSAGE" value="getNNearestVertexes added and works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

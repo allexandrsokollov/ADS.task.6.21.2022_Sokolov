@@ -44,18 +44,21 @@ public class Graph {
             break;
         }
 
-        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
+        for (Vertex vertex : graph.keySet()) {
+            if (!visited.contains(vertex)) {
+                graph.get(vertex).removeIf(visited::contains);
+            } else {
+                ArrayList<Vertex> vertexesToDelete = new ArrayList<>(graph.get(vertex));
 
-            if (!visited.contains(entry.getKey())) {
-                graph.get(entry.getKey()).removeIf(visited::contains);
-            }
-
-            for (Vertex vertex : graph.keySet()) {
-                if (!visited.contains(vertex)) {
-                    graph.get(vertex).removeIf(visited::contains);
+                for (int i = 0; i < vertexesToDelete.size(); i++) {
+                    if (visited.contains(vertexesToDelete.get(i))) {
+                        vertexesToDelete.remove(i--);
+                    }
                 }
+                graph.get(vertex).removeIf(vertexesToDelete::contains);
             }
         }
+
     }
 
     private ArrayList<Vertex> getNNearestVertexes(Vertex startingVertex, int n) {
