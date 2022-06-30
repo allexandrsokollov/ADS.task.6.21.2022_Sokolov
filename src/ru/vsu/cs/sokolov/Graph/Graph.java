@@ -19,7 +19,7 @@ public class Graph {
 
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
             ArrayList<Vertex> temp = graph.get(entry.getKey());
-            stringGraph.append(entry.getKey()).append(" -- { ");
+            stringGraph.append("    ").append(entry.getKey()).append(" -- { ");
 
             for (Vertex vertex : temp) {
                 stringGraph.append(vertex).append(" ");
@@ -36,93 +36,55 @@ public class Graph {
         t = 1;
         int minAmountInSubgraph = graph.size() / t;
 
-        HashSet<Vertex> visited = new HashSet<>();
+        HashSet<Vertex> visited = null;
         LinkedList<Vertex> queue = new LinkedList<>();
 
-        Vertex temp;
-        int i = 0;
-
-        for (Map.Entry<Vertex, ArrayList<Vertex>> v : graph.entrySet()) {
-            temp = v.getKey();
-            ArrayList<Vertex> edges = graph.get(temp);
-
-            visited.add(temp);
-            i++;
-
-            for (Vertex ed : edges) {
-                if (!visited.contains(ed) && !edges.contains(ed)) {
-                    queue.add(ed);
-                }
-            }
-
-            while (i < 3) {
-
-                System.out.println();
-                System.out.println(edges);
-                System.out.println(visited);
-                System.out.println();
-
-
-                temp = queue.poll();
-                edges = graph.get(temp);
-
-                visited.add(temp);
-                i++;
-
-
-                if (edges != null) {
-
-                    for (Vertex ed : edges) {
-                        if (!visited.contains(ed) && !edges.contains(ed)) {
-                            queue.add(ed);
-                        }
-                    }
-                }
-
-                System.out.println();
-                System.out.println(edges);
-                System.out.println(visited);
-                System.out.println();
-            }
+        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
+            visited = new HashSet<>(getNNearestVertexes(entry.getKey(), 3));
             break;
         }
-
-//        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
-//            int amountVertInNew;
-//            visited.put(entry.getKey(), true);
-//            amountVertInNew = 1;
-//
-//            queue.addAll(graph.get(entry.getKey()));
-//
-//            while (!queue.isEmpty()) {
-//                visited.put(queue.get(0), true);
-//
-//                for (Vertex toAdd : graph.get(queue.get(0))) {
-//                    if (!visited.containsKey(toAdd) && !queue.contains(toAdd)) {
-//                        queue.add(toAdd);
-//                    }
-//                }
-//
-//                queue.remove(0);
-//                amountVertInNew++;
-//
-//
-//                if (amountVertInNew == minAmountInSubgraph) {
-//                    break;
-//                }
-//            }
-//        }
 
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
 
             if (!visited.contains(entry.getKey())) {
-               graph.get(entry.getKey()).removeIf(visited::contains);
+                graph.get(entry.getKey()).removeIf(visited::contains);
+            }
 
-            } else {
-
-                //graph.get(entry.getKey()).removeIf(visited::contains);
+            for (Vertex vertex : graph.keySet()) {
+                if (!visited.contains(vertex)) {
+                    graph.get(vertex).removeIf(visited::contains);
+                }
             }
         }
+    }
+
+    private ArrayList<Vertex> getNNearestVertexes(Vertex startingVertex, int n) {
+        HashSet<Vertex> visited = new HashSet<>();
+        LinkedList<Vertex> queue = new LinkedList<>();
+
+        visited.add(startingVertex);
+        queue.add(startingVertex);
+
+        Vertex currentVertex;
+
+        while (!queue.isEmpty() || visited.size() < n) {
+            currentVertex = queue.poll();
+            System.out.println(currentVertex + " is added to visited\n");
+
+            ArrayList<Vertex> currentVertexEdges = graph.get(currentVertex);
+
+            for (Vertex vertex : currentVertexEdges) {
+                if (!visited.contains(vertex)) {
+                    visited.add(vertex);
+                    queue.add(vertex);
+                }
+                if (visited.size() >= n) {
+                    break;
+                }
+            }
+        }
+
+        return new ArrayList<>(visited);
     }
 
     private void stringToGraph(String stringGraph)  {
