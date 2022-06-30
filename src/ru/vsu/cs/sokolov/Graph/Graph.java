@@ -44,6 +44,10 @@ public class Graph {
             break;
         }
 
+        deleteEdges(visited);
+    }
+
+    private void deleteEdges(HashSet<Vertex> visited) {
         for (Vertex vertex : graph.keySet()) {
             if (!visited.contains(vertex)) {
                 graph.get(vertex).removeIf(visited::contains);
@@ -58,7 +62,6 @@ public class Graph {
                 graph.get(vertex).removeIf(vertexesToDelete::contains);
             }
         }
-
     }
 
     private ArrayList<Vertex> getNNearestVertexes(Vertex startingVertex, int n) {
