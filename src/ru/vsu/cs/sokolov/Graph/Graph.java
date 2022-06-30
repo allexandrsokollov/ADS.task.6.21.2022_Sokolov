@@ -48,18 +48,12 @@ public class Graph {
     }
 
     private void deleteEdges(HashSet<Vertex> visited) {
+
         for (Vertex vertex : graph.keySet()) {
             if (!visited.contains(vertex)) {
-                graph.get(vertex).removeIf(visited::contains);
-            } else {
-                ArrayList<Vertex> vertexesToDelete = new ArrayList<>(graph.get(vertex));
-
-                for (int i = 0; i < vertexesToDelete.size(); i++) {
-                    if (visited.contains(vertexesToDelete.get(i))) {
-                        vertexesToDelete.remove(i--);
-                    }
+                for (Vertex visVert : visited) {
+                    removeEdge(visVert, vertex);
                 }
-                graph.get(vertex).removeIf(vertexesToDelete::contains);
             }
         }
     }
