@@ -25,7 +25,7 @@ public class Graph {
                 stringGraph.append(vertex).append(" ");
             }
 
-            stringGraph.append(" }\n");
+            stringGraph.append("}\n");
         }
 
         stringGraph.append("}");
@@ -36,39 +36,91 @@ public class Graph {
         t = 1;
         int minAmountInSubgraph = graph.size() / t;
 
-        LinkedHashMap<Vertex, Boolean> visited = new LinkedHashMap<>();
+        HashSet<Vertex> visited = new HashSet<>();
         LinkedList<Vertex> queue = new LinkedList<>();
 
-        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
-            int amountVertInNew;
-            visited.put(entry.getKey(), true);
-            amountVertInNew = 1;
+        Vertex temp;
+        int i = 0;
 
-            queue.addAll(graph.get(entry.getKey()));
+        for (Map.Entry<Vertex, ArrayList<Vertex>> v : graph.entrySet()) {
+            temp = v.getKey();
+            ArrayList<Vertex> edges = graph.get(temp);
 
-            while (!queue.isEmpty()) {
-                visited.put(queue.get(0), true);
+            visited.add(temp);
+            i++;
 
-                for (Vertex toAdd : graph.get(queue.get(0))) {
-                    if (!visited.containsKey(toAdd) && !queue.contains(toAdd)) {
-                        queue.add(toAdd);
+            for (Vertex ed : edges) {
+                if (!visited.contains(ed) && !edges.contains(ed)) {
+                    queue.add(ed);
+                }
+            }
+
+            while (i < 3) {
+
+                System.out.println();
+                System.out.println(edges);
+                System.out.println(visited);
+                System.out.println();
+
+                
+                temp = queue.poll();
+                edges = graph.get(temp);
+
+                visited.add(temp);
+                i++;
+
+
+                if (edges != null) {
+
+                    for (Vertex ed : edges) {
+                        if (!visited.contains(ed) && !edges.contains(ed)) {
+                            queue.add(ed);
+                        }
                     }
                 }
 
-                queue.remove(0);
-                amountVertInNew++;
-
-
-                if (amountVertInNew == minAmountInSubgraph) {
-                    break;
-                }
+                System.out.println();
+                System.out.println(edges);
+                System.out.println(visited);
+                System.out.println();
             }
+            break;
         }
+
+//        for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
+//            int amountVertInNew;
+//            visited.put(entry.getKey(), true);
+//            amountVertInNew = 1;
+//
+//            queue.addAll(graph.get(entry.getKey()));
+//
+//            while (!queue.isEmpty()) {
+//                visited.put(queue.get(0), true);
+//
+//                for (Vertex toAdd : graph.get(queue.get(0))) {
+//                    if (!visited.containsKey(toAdd) && !queue.contains(toAdd)) {
+//                        queue.add(toAdd);
+//                    }
+//                }
+//
+//                queue.remove(0);
+//                amountVertInNew++;
+//
+//
+//                if (amountVertInNew == minAmountInSubgraph) {
+//                    break;
+//                }
+//            }
+//        }
 
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
 
-            if (!visited.containsKey(entry.getKey())) {
-                graph.get(entry.getKey()).removeIf(visited::containsKey);
+            if (!visited.contains(entry.getKey())) {
+               graph.get(entry.getKey()).removeIf(visited::contains);
+
+            } else {
+
+                //graph.get(entry.getKey()).removeIf(visited::contains);
             }
         }
     }
