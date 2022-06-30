@@ -2,6 +2,13 @@ package ru.vsu.cs.sokolov.Graph;
 
 import java.util.*;
 
+/* graph example
+graph {
+    0 -- { 1 2 }
+    1 -- { 3 4 }
+    2 -- { 5 6 }
+}
+* */
 public class Graph {
 
     private final Map<Vertex, ArrayList<Vertex>> graph;
@@ -33,18 +40,66 @@ public class Graph {
         return stringGraph.toString();
     }
     public void divideGraph(int t) {
-        t = 1;
         int minAmountInSubgraph = graph.size() / (t + 1);
 
         HashSet<Vertex> visited = null;
-        LinkedList<Vertex> queue = new LinkedList<>();
 
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : graph.entrySet()) {
             visited = new HashSet<>(getNNearestVertexes(entry.getKey(), minAmountInSubgraph));
-            break;
+            if (isSecondGraphConnected(visited)) {
+                break;
+            }
         }
 
         deleteEdges(visited);
+    }
+
+    private boolean isSecondGraphConnected(HashSet<Vertex> visited) {
+        ArrayList<Vertex> secondGraphVertexes = new ArrayList<>();
+
+        for (Vertex vertex : graph.keySet()) {
+            if (!visited.contains(vertex)) {
+                secondGraphVertexes.add(vertex);
+            }
+        }
+
+        ArrayList<Vertex> reachedVertexes = getConnectedVertexesFromSecondGraph(secondGraphVertexes, visited);
+
+        for (Vertex vertex : secondGraphVertexes) {
+            if (!reachedVertexes.contains(vertex)) {
+                System.out.println("IMPOSSIBLE TO DIVIDE THIS WAY!");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private ArrayList<Vertex> getConnectedVertexesFromSecondGraph(ArrayList<Vertex> secondGraphVertexes, HashSet<Vertex> visited) {
+        HashSet<Vertex> vstd = new HashSet<>();
+        LinkedList<Vertex> queue = new LinkedList<>();
+
+        Vertex startingVertex = secondGraphVertexes.get(0);
+
+        vstd.add(startingVertex);
+        queue.add(startingVertex);
+
+        Vertex currentVertex;
+
+        while (!queue.isEmpty()) {
+            currentVertex = queue.poll();
+
+            ArrayList<Vertex> currentVertexEdges = graph.get(currentVertex);
+
+            for (Vertex vertex : currentVertexEdges) {
+                if (!vstd.contains(vertex) && !visited.contains(vertex)) {
+                    vstd.add(vertex);
+                    queue.add(vertex);
+                }
+            }
+        }
+
+        return new ArrayList<>(vstd);
     }
 
     private void deleteEdges(HashSet<Vertex> visited) {
@@ -61,6 +116,10 @@ public class Graph {
         HashSet<Vertex> visited = new HashSet<>();
         LinkedList<Vertex> queue = new LinkedList<>();
 
+        if (n % 2 == 1) {
+            n++;
+        }
+
         visited.add(startingVertex);
         queue.add(startingVertex);
 
@@ -68,7 +127,6 @@ public class Graph {
 
         while (!queue.isEmpty() || visited.size() < n) {
             currentVertex = queue.poll();
-            System.out.println(currentVertex + " is added to visited\n");
 
             ArrayList<Vertex> currentVertexEdges = graph.get(currentVertex);
 
@@ -145,8 +203,6 @@ public class Graph {
     public void addVertex(Vertex vertex)  {
         if (!graph.containsKey(vertex)) {
             graph.put(vertex, new ArrayList<>());
-        } else {
-            System.out.println("This Vertex already exist in graph!");
         }
     }
 
