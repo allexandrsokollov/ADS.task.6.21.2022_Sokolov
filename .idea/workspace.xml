@@ -9,10 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="minor changes">
+    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="extraction works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/TreePriorityQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/TreePriorityQueue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,7 +112,7 @@
       <workItem from="1656673648251" duration="1513000" />
       <workItem from="1656675339431" duration="7000" />
       <workItem from="1656675891801" duration="3618000" />
-      <workItem from="1656679634710" duration="6160000" />
+      <workItem from="1656679634710" duration="12512000" />
     </task>
     <task id="LOCAL-00001" summary="Second commit">
       <created>1622212057858</created>
@@ -196,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656682529950</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="extraction works">
+      <created>1656687665469</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1656687665469</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,19 +232,20 @@
     <MESSAGE value="it works" />
     <MESSAGE value="addition works" />
     <MESSAGE value="minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+    <MESSAGE value="extraction works" />
+    <option name="LAST_COMMIT_MESSAGE" value="extraction works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/ru/vsu/cs/sokolov/TreePriorityQueue.java</url>
-          <line>28</line>
-          <properties class="ru.vsu.cs.sokolov.TreePriorityQueue" method="extract">
+          <line>23</line>
+          <properties class="ru.vsu.cs.sokolov.TreePriorityQueue" method="delete">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

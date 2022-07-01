@@ -21,21 +21,61 @@ public class TreePriorityQueue<T> {
         random = new Random();
     }
 
-    public String toString() {
-        switcher = random.nextBoolean();
-        return "graph {\n" + getEdges(queueRoot) + "}";
+    public void delete(T value) {
+        Node finding = new Node(value);
+        Node currentNode = queueRoot;
+
+        if (unique.contains(finding)) {
+            if (finding.equals(currentNode)) {
+                deleteNodeFromQueue(currentNode);
+                return;
+            }
+
+            if (currentNode.equals(finding)) {
+                deleteNodeFromQueue(currentNode);
+            }
+
+            Visitor visitor = new Visitor();
+            findNode(currentNode, finding, visitor);
+            Node node = visitor.node;
+            deleteNodeFromQueue(node);
+        }
     }
 
-    public T extract() {
-        T toReturn = queueRoot.value;
 
-        if (queueRoot.leftChild == null && queueRoot.rightChild == null) {
-            queueRoot = null;
-            return toReturn;
+    class Visitor {
+        Node node;
+    }
+    private void findNode(Node starting, Node finding, Visitor visitor) {
+        if (starting.leftChild != null) {
+            if (starting.leftChild.equals(finding)) {
+                visitor.node = starting.leftChild;
+            } else {
+                findNode(starting.leftChild, finding, visitor);
+
+            }
         }
-        queueRoot.value = null;
 
-        Node currentNode = queueRoot;
+        if (starting.rightChild != null) {
+            if (starting.rightChild.equals(finding)) {
+                visitor.node = starting.rightChild;
+            } else {
+                findNode(starting.rightChild, finding, visitor);
+            }
+        }
+
+        if (starting.rightChild != null) {
+            findNode(starting.rightChild, finding, visitor);
+        }
+        if (starting.leftChild != null) {
+            findNode(starting.leftChild, finding, visitor);
+        }
+    }
+
+    private void deleteNodeFromQueue(Node toDelete) {
+        toDelete.value = null;
+
+        Node currentNode = toDelete;
 
         while (currentNode.leftChild != null || currentNode.rightChild != null) {
 
@@ -87,6 +127,21 @@ public class TreePriorityQueue<T> {
 
             }
         }
+    }
+
+    public String toString() {
+        switcher = random.nextBoolean();
+        return "graph {\n" + getEdges(queueRoot) + "}";
+    }
+
+    public T extract() {
+        T toReturn = queueRoot.value;
+
+        if (queueRoot.leftChild == null && queueRoot.rightChild == null) {
+            queueRoot = null;
+            return toReturn;
+        }
+        deleteNodeFromQueue(queueRoot);
 
         return toReturn;
     }
