@@ -25,23 +25,17 @@ public class TreePriorityQueue<T> {
         Node finding = new Node(value);
         Node currentNode = queueRoot;
 
-        if (unique.contains(finding)) {
-            if (finding.equals(currentNode)) {
-                deleteNodeFromQueue(currentNode);
-                return;
-            }
-
-            if (currentNode.equals(finding)) {
-                deleteNodeFromQueue(currentNode);
-            }
-
-            Visitor visitor = new Visitor();
-            findNode(currentNode, finding, visitor);
-            Node node = visitor.node;
-            deleteNodeFromQueue(node);
+        if (finding.equals(currentNode)) {
+            deleteNodeFromQueue(currentNode);
+            return;
         }
-    }
 
+        Visitor visitor = new Visitor();
+        findNode(currentNode, finding, visitor);
+        Node node = visitor.node;
+        deleteNodeFromQueue(node);
+
+    }
 
     class Visitor {
         Node node;
@@ -50,15 +44,22 @@ public class TreePriorityQueue<T> {
         if (starting.leftChild != null) {
             if (starting.leftChild.equals(finding)) {
                 visitor.node = starting.leftChild;
+
+                if (starting.leftChild.leftChild == null && starting.leftChild.rightChild == null) {
+                    starting.setLeftChild(null);
+                }
             } else {
                 findNode(starting.leftChild, finding, visitor);
-
             }
         }
 
         if (starting.rightChild != null) {
             if (starting.rightChild.equals(finding)) {
                 visitor.node = starting.rightChild;
+
+                if (starting.rightChild.leftChild == null && starting.rightChild.rightChild == null) {
+                    starting.setRightChild(null);
+                }
             } else {
                 findNode(starting.rightChild, finding, visitor);
             }
