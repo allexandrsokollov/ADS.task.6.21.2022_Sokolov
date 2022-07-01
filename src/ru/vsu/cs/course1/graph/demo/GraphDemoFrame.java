@@ -12,13 +12,14 @@ import org.apache.batik.bridge.*;
 import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.svg.SVGDocument;
-import ru.vsu.cs.sokolov.Graph.Graph;
+import ru.vsu.cs.sokolov.TreePriorityQueue;
 import ru.vsu.cs.util.SwingUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.*;
+
 public class GraphDemoFrame extends JFrame {
     private JTabbedPane tabbedPaneMain;
     private JPanel panelMain;
@@ -29,12 +30,15 @@ public class GraphDemoFrame extends JFrame {
     private JSplitPane splitPaneGraphvizTab1;
     private JButton buttonDivide;
     private JSpinner spinnerKValue;
+    private JLabel Value;
+    TreePriorityQueue<Integer> graph;
 
-    private Graph graph;
+
     private final SvgPanel panelGraphvizPainter;
 
     private static class SvgPanel extends JPanel {
         private GraphicsNode svgGraphicsNode = null;
+
 
         public void paint(String svg) throws IOException {
             String xmlParser = XMLResourceDescriptor.getXMLParserClassName();
@@ -76,6 +80,10 @@ public class GraphDemoFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
+
+        graph = new TreePriorityQueue<>(Integer::compareTo);
+        graph.add(0);
+
         splitPaneGraphvizTab1.setBorder(null);
 
         panelDotPainterContainer.setLayout(new BorderLayout());
@@ -85,8 +93,14 @@ public class GraphDemoFrame extends JFrame {
 
         buttonDotPaint.addActionListener(e -> {
             try {
-                panelGraphvizPainter.paint(dotToSvg(textAreaDotFile.getText()));
-                graph = new Graph(textAreaDotFile.getText());
+                String grapgStr = graph.toString();
+                panelGraphvizPainter.paint(dotToSvg(grapgStr));
+                /*
+                graph {
+                    2 -- { 0 1 }
+                }
+                 */
+                //panelGraphvizPainter.paint(dotToSvg(textAreaDotFile.getText()));
             } catch (Exception exc) {
                 SwingUtils.showErrorMessageBox(exc);
             }
@@ -94,7 +108,8 @@ public class GraphDemoFrame extends JFrame {
 
         buttonDivide.addActionListener(e -> {
             try {
-                graph.divideGraph(Math.abs((Integer) spinnerKValue.getValue()));
+                int add = (int) spinnerKValue.getValue();
+                graph.add(add);
             } catch (Exception ex) {
                 SwingUtils.showErrorMessageBox(ex);
             }
@@ -158,13 +173,13 @@ public class GraphDemoFrame extends JFrame {
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel2.add(panel3, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         buttonDivide = new JButton();
-        buttonDivide.setText("Divide");
+        buttonDivide.setText("Add node");
         panel3.add(buttonDivide, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         spinnerKValue = new JSpinner();
         panel2.add(spinnerKValue, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label1 = new JLabel();
-        label1.setText("K value");
-        panel2.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        Value = new JLabel();
+        Value.setText("Value");
+        panel2.add(Value, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonDotPaint = new JButton();
         buttonDotPaint.setText("Отобразить");
         panel2.add(buttonDotPaint, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
