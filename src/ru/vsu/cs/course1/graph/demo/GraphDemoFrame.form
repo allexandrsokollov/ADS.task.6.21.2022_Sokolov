@@ -84,7 +84,7 @@
                           <component id="9d017" class="javax.swing.JTextArea" binding="textAreaDotFile">
                             <constraints/>
                             <properties>
-                              <text value="graph {&#10;    2 -- { 3 4 }&#10;    3 -- 6 -- { 2 4 } &#10;}"/>
+                              <text value=""/>
                               <wrapStyleWord value="false"/>
                             </properties>
                           </component>

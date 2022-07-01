@@ -3,6 +3,7 @@ package ru.vsu.cs.sokolov;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Random;
 
 public class TreePriorityQueue<T> {
 
@@ -10,17 +11,22 @@ public class TreePriorityQueue<T> {
     Comparator<T> comparator;
     HashSet<Node> unique;
     boolean switcher;
+    Random random;
 
     public TreePriorityQueue(Comparator<T> comparator) {
         this.queueRoot = null;
         this.comparator = comparator;
         unique = new HashSet<>();
         switcher = false;
+        random = new Random();
     }
 
     public String toString() {
+        switcher = random.nextBoolean();
         return "graph {\n" + getEdges(queueRoot) + "}";
     }
+
+
 
     private String getEdges(Node node) {
         StringBuilder string = new StringBuilder();
@@ -34,6 +40,13 @@ public class TreePriorityQueue<T> {
             string.append(node.value).append(" -- ");
             string.append(node.rightChild.value).append(" ").append("\n").append(getEdges(node.rightChild));
         }
+
+        if (node.leftChild == null && node.rightChild == null) {
+            string.append(node.value).append("\n");
+        }
+        Random random = new Random();
+
+        switcher = random.nextBoolean();
         return string.toString();
     }
 
@@ -58,15 +71,14 @@ public class TreePriorityQueue<T> {
                         toAdd.setRightChild(currentNode);
                         queueRoot = toAdd;
                         isAdded = true;
-                        switcher = false;
                     } else {
                         toAdd.setRightChild(currentNode.rightChild);
                         currentNode.setRightChild(null);
                         toAdd.setLeftChild(currentNode);
                         queueRoot = toAdd;
                         isAdded = true;
-                        switcher = true;
                     }
+                    switcher = random.nextBoolean();
                 } else {
 
                     if (currentNode.leftChild == null || currentNode.rightChild == null) {
@@ -76,13 +88,17 @@ public class TreePriorityQueue<T> {
                             currentNode.rightChild = toAdd;
                         }
                         isAdded = true;
+                        switcher = random.nextBoolean();
                     } else {
 
-                        if (comparator.compare(currentNode.leftChild.value, currentNode.rightChild.value) >= 0) {
+                        if (switcher) {
                             currentNode = currentNode.rightChild;
+                            switcher = false;
                         } else {
                             currentNode = currentNode.leftChild;
+                            switcher = true;
                         }
+                        switcher = random.nextBoolean();
 
                     }
                 }

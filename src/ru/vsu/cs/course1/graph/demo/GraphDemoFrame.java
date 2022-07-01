@@ -82,7 +82,10 @@ public class GraphDemoFrame extends JFrame {
 
 
         graph = new TreePriorityQueue<>(Integer::compareTo);
-        graph.add(0);
+
+        for (int i = 20; i >= 0; i--) {
+            graph.add(i);
+        }
 
         splitPaneGraphvizTab1.setBorder(null);
 
@@ -166,7 +169,7 @@ public class GraphDemoFrame extends JFrame {
         final JScrollPane scrollPane1 = new JScrollPane();
         panel2.add(scrollPane1, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         textAreaDotFile = new JTextArea();
-        textAreaDotFile.setText("graph {\n    2 -- { 3 4 }\n    3 -- 6 -- { 2 4 } \n}");
+        textAreaDotFile.setText("");
         textAreaDotFile.setWrapStyleWord(false);
         scrollPane1.setViewportView(textAreaDotFile);
         final JPanel panel3 = new JPanel();

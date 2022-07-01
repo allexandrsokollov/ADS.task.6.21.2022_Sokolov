@@ -9,13 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="it works">
-      <change afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/TreePriorityQueue.java" afterDir="false" />
+    <list default="true" id="d0f30c31-7042-41d8-8fa8-a81744b8b657" name="Default Changelist" comment="addition works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/graph/demo/GraphDemoFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Graph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/Graph/Vertex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/TreePriorityQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/sokolov/TreePriorityQueue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +107,8 @@
       <workItem from="1656670476269" duration="79000" />
       <workItem from="1656673648251" duration="1513000" />
       <workItem from="1656675339431" duration="7000" />
-      <workItem from="1656675891801" duration="2576000" />
+      <workItem from="1656675891801" duration="3618000" />
+      <workItem from="1656679634710" duration="1438000" />
     </task>
     <task id="LOCAL-00001" summary="Second commit">
       <created>1622212057858</created>
@@ -181,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656606003660</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="addition works">
+      <created>1656678814452</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1656678814452</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +212,7 @@
     <MESSAGE value="edges deleting works correctly" />
     <MESSAGE value="deleted some useless code" />
     <MESSAGE value="it works" />
-    <option name="LAST_COMMIT_MESSAGE" value="it works" />
+    <MESSAGE value="addition works" />
+    <option name="LAST_COMMIT_MESSAGE" value="addition works" />
   </component>
 </project>
