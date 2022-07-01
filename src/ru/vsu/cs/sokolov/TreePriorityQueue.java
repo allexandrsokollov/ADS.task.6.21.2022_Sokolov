@@ -26,28 +26,85 @@ public class TreePriorityQueue<T> {
         return "graph {\n" + getEdges(queueRoot) + "}";
     }
 
+    public T extract() {
+        T toReturn = queueRoot.value;
 
+        if (queueRoot.leftChild == null && queueRoot.rightChild == null) {
+            queueRoot = null;
+            return toReturn;
+        }
+        queueRoot.value = null;
 
-    private String getEdges(Node node) {
-        StringBuilder string = new StringBuilder();
+        Node currentNode = queueRoot;
 
-        if (node.leftChild != null) {
-            string.append(node.value).append(" -- ");
-            string.append(node.leftChild.value).append(" ").append("\n").append(getEdges(node.leftChild));
+        while (currentNode.leftChild != null || currentNode.rightChild != null) {
+
+            if (currentNode.leftChild != null && currentNode.rightChild != null) {
+                if (comparator.compare(currentNode.leftChild.value, currentNode.rightChild.value) >= 0) {
+                    switchNodes(currentNode, false);
+
+                    if (currentNode.leftChild.leftChild == null && currentNode.leftChild.rightChild == null) {
+                        currentNode.setLeftChild(null);
+                        System.out.println(currentNode + " left deleted \n\n");
+                        break;
+                    } else {
+                        currentNode = currentNode.leftChild;
+                    }
+                } else {
+                    switchNodes(currentNode, true);
+
+                    if (currentNode.rightChild.leftChild == null && currentNode.rightChild.rightChild == null) {
+                        currentNode.setRightChild(null);
+                        System.out.println(currentNode + " right deleted \n\n");
+                        break;
+                    } else {
+                        currentNode = currentNode.rightChild;
+                    }
+                }
+            } else {
+
+                if (currentNode.leftChild != null) {
+                    switchNodes(currentNode, false);
+
+                    if (currentNode.leftChild.leftChild == null && currentNode.leftChild.rightChild == null) {
+                        currentNode.setLeftChild(null);
+                        System.out.println(currentNode + " left deleted \n\n");
+                        break;
+                    } else {
+                        currentNode = currentNode.leftChild;
+                    }
+                } else {
+                    switchNodes(currentNode, true);
+
+                    if (currentNode.rightChild.leftChild == null && currentNode.rightChild.rightChild == null) {
+                        currentNode.setRightChild(null);
+                        System.out.println(currentNode + " right deleted \n\n");
+                        break;
+                    } else {
+                        currentNode = currentNode.rightChild;
+                    }
+                }
+
+            }
         }
 
-        if (node.rightChild != null) {
-            string.append(node.value).append(" -- ");
-            string.append(node.rightChild.value).append(" ").append("\n").append(getEdges(node.rightChild));
-        }
+        return toReturn;
+    }
 
-        if (node.leftChild == null && node.rightChild == null) {
-            string.append(node.value).append("\n");
+    private void switchNodes(Node node, boolean leftOrRight) {
+        if (leftOrRight) {
+            if (node.rightChild != null) {
+                System.out.println(node.rightChild + " shifted up");
+                node.value = node.rightChild.value;
+                node.rightChild.value = null;
+            }
+        } else {
+            if (node.leftChild != null) {
+                System.out.println(node.leftChild + " shifted up");
+                node.value = node.leftChild.value;
+                node.leftChild.value = null;
+            }
         }
-        Random random = new Random();
-
-        switcher = random.nextBoolean();
-        return string.toString();
     }
 
     public void add(T value) {
@@ -106,9 +163,31 @@ public class TreePriorityQueue<T> {
         }
     }
 
+    private String getEdges(Node node) {
+        StringBuilder string = new StringBuilder();
+
+        if (node.leftChild != null) {
+            string.append(node.value).append(" -- ");
+            string.append(node.leftChild.value).append(" ").append("\n").append(getEdges(node.leftChild));
+        }
+
+        if (node.rightChild != null) {
+            string.append(node.value).append(" -- ");
+            string.append(node.rightChild.value).append(" ").append("\n").append(getEdges(node.rightChild));
+        }
+
+        if (node.leftChild == null && node.rightChild == null) {
+            string.append(node.value).append("\n");
+        }
+        Random random = new Random();
+
+        switcher = random.nextBoolean();
+        return string.toString();
+    }
+
 
     class Node {
-        private final T value;
+        private T value;
         private Node leftChild;
         private Node rightChild;
 
@@ -129,6 +208,12 @@ public class TreePriorityQueue<T> {
         @Override
         public int hashCode() {
             return Objects.hash(value);
+        }
+
+
+        @Override
+        public String toString() {
+            return "value=" + value;
         }
 
         public void setLeftChild(Node leftChild) {

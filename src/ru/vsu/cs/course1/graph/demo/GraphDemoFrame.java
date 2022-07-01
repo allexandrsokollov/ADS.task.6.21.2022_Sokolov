@@ -17,6 +17,8 @@ import ru.vsu.cs.util.SwingUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.io.*;
 
@@ -31,6 +33,8 @@ public class GraphDemoFrame extends JFrame {
     private JButton buttonDivide;
     private JSpinner spinnerKValue;
     private JLabel Value;
+    private JButton buttonExtract;
+    private JLabel labelExValue;
     TreePriorityQueue<Integer> graph;
 
 
@@ -81,6 +85,7 @@ public class GraphDemoFrame extends JFrame {
         this.pack();
 
 
+        buttonDotPaint.setVisible(false);
         graph = new TreePriorityQueue<>(Integer::compareTo);
 
         for (int i = 20; i >= 0; i--) {
@@ -93,6 +98,7 @@ public class GraphDemoFrame extends JFrame {
         panelGraphvizPainter = new SvgPanel();
         panelDotPainterContainer.add(new JScrollPane(panelGraphvizPainter));
 
+        buttonDotPaint.doClick();
 
         buttonDotPaint.addActionListener(e -> {
             try {
@@ -117,9 +123,14 @@ public class GraphDemoFrame extends JFrame {
                 SwingUtils.showErrorMessageBox(ex);
             }
             textAreaDotFile.setText(graph.toString());
+            buttonDotPaint.doClick();
         });
 
 
+        buttonExtract.addActionListener(e -> {
+            labelExValue.setText(String.valueOf(graph.extract()));
+            buttonDotPaint.doClick();
+        });
     }
 
     private static String dotToSvg(String dotSrc) throws IOException {
@@ -164,7 +175,7 @@ public class GraphDemoFrame extends JFrame {
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel2.setLayout(new GridLayoutManager(3, 3, new Insets(0, 0, 0, 0), -1, -1));
         splitPaneGraphvizTab1.setLeftComponent(panel2);
         final JScrollPane scrollPane1 = new JScrollPane();
         panel2.add(scrollPane1, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
@@ -172,20 +183,27 @@ public class GraphDemoFrame extends JFrame {
         textAreaDotFile.setText("");
         textAreaDotFile.setWrapStyleWord(false);
         scrollPane1.setViewportView(textAreaDotFile);
-        final JPanel panel3 = new JPanel();
-        panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel2.add(panel3, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        buttonDivide = new JButton();
-        buttonDivide.setText("Add node");
-        panel3.add(buttonDivide, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         spinnerKValue = new JSpinner();
-        panel2.add(spinnerKValue, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel2.add(spinnerKValue, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         Value = new JLabel();
         Value.setText("Value");
-        panel2.add(Value, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel2.add(Value, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonExtract = new JButton();
+        buttonExtract.setText("Extract");
+        panel2.add(buttonExtract, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Extracted value");
+        label1.setToolTipText("Extracted value");
+        panel2.add(label1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        labelExValue = new JLabel();
+        labelExValue.setText("Label");
+        panel2.add(labelExValue, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonDivide = new JButton();
+        buttonDivide.setText("Add node");
+        panel2.add(buttonDivide, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonDotPaint = new JButton();
         buttonDotPaint.setText("Отобразить");
-        panel2.add(buttonDotPaint, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel2.add(buttonDotPaint, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
